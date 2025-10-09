@@ -27,6 +27,10 @@
 #include "kernel_compat.h"
 #include "selinux/selinux.h"
 
+#ifdef CONFIG_KSU_SUSFS_SUS_SU
+bool susfs_is_sus_su_ready = false;
+#endif // #ifdef CONFIG_KSU_SUSFS_SUS_SU
+
 static const char KERNEL_SU_RC[] =
 	"\n"
 
@@ -684,6 +688,10 @@ static void stop_execve_hook(void)
 #else
 	pr_info("stop execve_hook\n");
 	ksu_execveat_hook = false;
+#endif
+#ifdef CONFIG_KSU_SUSFS_SUS_SU
+	susfs_is_sus_su_ready = true;
+	pr_info("susfs: sus_su is ready\n");
 #endif
 }
 

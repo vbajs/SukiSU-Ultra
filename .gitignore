@@ -1,1 +1,4 @@
 manager
+*.patch
+*.rej
+*.orig
